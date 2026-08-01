@@ -49,7 +49,20 @@
 
         header p {
             font-size: 0.95rem;
-            opacity: 0.9;
+            opacity: 0.95;
+        }
+
+        .gen-date {
+            display: inline-block;
+            margin-top: 10px;
+            background: rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+            padding: 4px 12px;
+            border-radius: 16px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255,255,255,0.3);
         }
 
         /* Sticky Navigation Bar */
@@ -94,21 +107,54 @@
         .card {
             background: var(--bg-card);
             border-radius: 8px;
-            padding: 20px;
             margin-bottom: 20px;
             border: 1px solid var(--border);
             box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            overflow: hidden;
         }
 
-        .card h2 {
+        /* Collapsible Header Style */
+        .collapsible-header {
             color: var(--primary-dark);
-            font-size: 1.3rem;
-            margin-bottom: 14px;
-            border-bottom: 2px solid var(--border);
-            padding-bottom: 8px;
+            font-size: 1.25rem;
+            padding: 18px 20px;
+            background: #ffffff;
+            cursor: pointer;
+            user-select: none;
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 8px;
+            transition: background 0.2s;
+        }
+
+        .collapsible-header:hover {
+            background: #f8f9fa;
+        }
+
+        .collapsible-header .toggle-icon {
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: transform 0.3s;
+        }
+
+        .card.open .collapsible-header .toggle-icon {
+            transform: rotate(180deg);
+        }
+
+        .collapsible-content {
+            display: none;
+            padding: 0 20px 20px 20px;
+            border-top: 1px solid var(--border);
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .card.open .collapsible-content {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .card h3 {
@@ -137,11 +183,12 @@
             border-radius: 0 4px 4px 0;
         }
 
-        /* Cronograma Table & Grid */
+        /* Schedule Grid */
         .schedule-grid {
             display: grid;
             grid-template-columns: 1fr;
             gap: 12px;
+            margin-top: 10px;
         }
 
         @media(min-width: 600px) {
@@ -172,6 +219,26 @@
             border-radius: 12px;
             font-weight: bold;
             margin-bottom: 6px;
+        }
+
+        .btn-close-section {
+            background: #f3f2f1;
+            color: var(--text-main);
+            border: 1px solid var(--border);
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 15px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: background 0.2s;
+        }
+
+        .btn-close-section:hover {
+            background: #e1dfdd;
         }
 
         /* Simulado Styles */
@@ -258,11 +325,12 @@
         }
 
         .feedback {
-            margin-top: 10px;
-            padding: 10px 14px;
+            margin-top: 12px;
+            padding: 12px 14px;
             border-radius: 6px;
             font-size: 0.9rem;
             display: none;
+            line-height: 1.5;
         }
 
         .feedback.correct {
@@ -302,6 +370,7 @@
     <header>
         <h1>Trilha de Certificação AZ-900</h1>
         <p>Microsoft Azure Fundamentals — Guia de Estudos & Simulados</p>
+        <div class="gen-date">📅 Gerado em: 31 de Julho de 2026</div>
     </header>
 
     <nav>
@@ -316,247 +385,455 @@
     <div class="container">
 
         <!-- Visão Geral -->
-        <section id="visao-geral" class="card">
-            <h2>📌 Visão Geral do Exame AZ-900</h2>
-            <p>O exame <strong>AZ-900: Microsoft Azure Fundamentals</strong> é a porta de entrada para o ecossistema de nuvem da Microsoft. Ele valida conhecimentos fundamentais sobre conceitos de nuvem, serviços do Azure, segurança, privacidade e gerenciamento de custos.</p>
-            
-            <div class="highlight-box">
-                <strong>Detalhes da Prova:</strong>
-                <ul>
-                    <li><strong>Duração:</strong> ~45 a 60 minutos (30 a 40 questões).</li>
-                    <li><strong>Nota de Corte:</strong> 700 de 1000 pontos.</li>
-                    <li><strong>Formato:</strong> Múltipla escolha, resposta única, associação e verdadeiro/falso.</li>
-                    <li><strong>Perfil do Candidato:</strong> Profissionais de TI, Gestores e Engenheiros de Dados/BI que buscam consolidar conceitos de nuvem pública.</li>
-                </ul>
+        <section id="visao-geral" class="card open">
+            <div class="collapsible-header" onclick="toggleCard(this)">
+                <h2>📌 Visão Geral do Exame AZ-900</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="collapsible-content">
+                <p>O exame <strong>AZ-900: Microsoft Azure Fundamentals</strong> é a porta de entrada para o ecossistema de nuvem da Microsoft. Ele valida conhecimentos fundamentais sobre conceitos de nuvem, serviços do Azure, segurança, privacidade e gerenciamento de custos.</p>
+                
+                <div class="highlight-box">
+                    <strong>Detalhes da Prova:</strong>
+                    <ul>
+                        <li><strong>Duração:</strong> ~45 a 60 minutos (30 a 40 questões).</li>
+                        <li><strong>Nota de Corte:</strong> 700 de 1000 pontos (70%).</li>
+                        <li><strong>Formato:</strong> Múltipla escolha, resposta única, associação e verdadeiro/falso.</li>
+                        <li><strong>Perfil do Candidato:</strong> Profissionais de TI, Gestores e Engenheiros de Dados/BI que buscam consolidar conceitos de nuvem pública.</li>
+                    </ul>
+                </div>
+
+                <button class="btn-close-section" onclick="closeCard(this)">▲ Recolher Tópico</button>
             </div>
         </section>
 
         <!-- Cronograma -->
-        <section id="cronograma" class="card">
-            <h2>📅 Cronograma de Estudos Recomendado (7 Dias)</h2>
-            <p>Este plano de estudo foi estruturado para ser concluído em 1 a 2 semanas, dedicando cerca de 1 a 1.5 horas por dia.</p>
-            
-            <div class="schedule-grid">
-                <div class="day-box">
-                    <span class="badge">DIA 1</span>
-                    <h4>Conceitos de Nuvem</h4>
-                    <p>IaaS, PaaS, SaaS, Nuvem Pública, Privada e Híbrida. Modelos de CapEx vs OpEx.</p>
+        <section id="cronograma" class="card open">
+            <div class="collapsible-header" onclick="toggleCard(this)">
+                <h2>📅 Cronograma de Estudos Recomendado (7 Dias)</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="collapsible-content">
+                <p>Este plano de estudo foi estruturado para ser concluído em 1 a 2 semanas, dedicando cerca de 1 a 1.5 horas por dia.</p>
+                
+                <div class="schedule-grid">
+                    <div class="day-box">
+                        <span class="badge">DIA 1</span>
+                        <h4>Conceitos de Nuvem</h4>
+                        <p>IaaS, PaaS, SaaS, Nuvem Pública, Privada e Híbrida. Modelos de CapEx vs OpEx.</p>
+                    </div>
+                    <div class="day-box">
+                        <span class="badge">DIA 2</span>
+                        <h4>Arquitetura Azure</h4>
+                        <p>Regiões, Zonas de Disponibilidade, Grupos de Recursos e Assinaturas.</p>
+                    </div>
+                    <div class="day-box">
+                        <span class="badge">DIA 3</span>
+                        <h4>Computação e Rede</h4>
+                        <p>VMs, Azure App Service, ACI/AKS, VNets, VPN Gateway e ExpressRoute.</p>
+                    </div>
+                    <div class="day-box">
+                        <span class="badge">DIA 4</span>
+                        <h4>Armazenamento e Dados</h4>
+                        <p>Blob Storage, Disk Storage, Azure Files, Cosmos DB, Azure SQL e Synapse.</p>
+                    </div>
+                    <div class="day-box">
+                        <span class="badge">DIA 5</span>
+                        <h4>Segurança e Identidade</h4>
+                        <p>Microsoft Entra ID (Azure AD), Autenticação MFA, RBAC e Zero Trust.</p>
+                    </div>
+                    <div class="day-box">
+                        <span class="badge">DIA 6</span>
+                        <h4>Governança e Custos</h4>
+                        <p>Azure Policy, Locks, Cost Management e Calculadora de TCO.</p>
+                    </div>
+                    <div class="day-box" style="grid-column: 1 / -1;">
+                        <span class="badge" style="background: var(--primary); color: white;">DIA 7</span>
+                        <h4>Simulados Práticos e Revisão Geral</h4>
+                        <p>Realização de testes simulados, revisão dos pontos fracos e consolidação do conteúdo.</p>
+                    </div>
                 </div>
-                <div class="day-box">
-                    <span class="badge">DIA 2</span>
-                    <h4>Arquitetura Azure</h4>
-                    <p>Regiões, Zonas de Disponibilidade, Grupos de Recursos e Assinaturas.</p>
-                </div>
-                <div class="day-box">
-                    <span class="badge">DIA 3</span>
-                    <h4>Computação e Rede</h4>
-                    <p>VMs, Azure App Service, ACI/AKS, VNets, VPN Gateway e ExpressRoute.</p>
-                </div>
-                <div class="day-box">
-                    <span class="badge">DIA 4</span>
-                    <h4>Armazenamento e Dados</h4>
-                    <p>Blob Storage, Disk Storage, Azure Files, Cosmos DB, Azure SQL e Synapse.</p>
-                </div>
-                <div class="day-box">
-                    <span class="badge">DIA 5</span>
-                    <h4>Segurança e Identidade</h4>
-                    <p>Microsoft Entra ID (Azure AD), Autenticação MFA, RBAC e Zero Trust.</p>
-                </div>
-                <div class="day-box">
-                    <span class="badge">DIA 6</span>
-                    <h4>Governança e Custos</h4>
-                    <p>Azure Policy, Locks, Cost Management e Calculadora de TCO.</p>
-                </div>
-                <div class="day-box" style="grid-column: 1 / -1;">
-                    <span class="badge" style="background: var(--primary); color: white;">DIA 7</span>
-                    <h4>Simulados Práticos e Revisão Geral</h4>
-                    <p>Realização de testes simulados, revisão dos pontos fracos e consolidação do conteúdo.</p>
-                </div>
+
+                <button class="btn-close-section" onclick="closeCard(this)">▲ Recolher Tópico</button>
             </div>
         </section>
 
         <!-- Material - Domínio 1 -->
-        <section id="dominio1" class="card">
-            <h2>☁️ Domínio 1: Conceitos de Nuvem (25–30%)</h2>
-            
-            <h3>1.1 Modelos de Nuvem</h3>
-            <ul>
-                <li><strong>Nuvem Pública:</strong> Propriedade de provedores de terceiros (como a Microsoft). Recursos compartilhados via internet. Sem custo de capital inicial.</li>
-                <li><strong>Nuvem Privada:</strong> Infraestrutura dedicada exclusivamente a uma única organização. Maior controle sobre a segurança e conformidade.</li>
-                <li><strong>Nuvem Híbrida:</strong> Combina nuvem pública e privada, permitindo que dados e aplicativos sejam compartilhados entre elas.</li>
-            </ul>
-
-            <h3>1.2 Modelos de Serviço de Nuvem (SPI)</h3>
-            <ul>
-                <li><strong>IaaS (Infrastructure as a Service):</strong> Aluguel de infraestrutura de TI (VMs, redes, armazenamento). Maior controle e responsabilidade do usuário (Patching do SO, configurações). Ex: Azure VMs.</li>
-                <li><strong>PaaS (Platform as a Service):</strong> Ambiente para desenvolvimento e implantação de apps sem gerenciar servidores subjacentes. A Microsoft cuida do SO e runtime. Ex: Azure App Service, Azure SQL Database.</li>
-                <li><strong>SaaS (Software as a Service):</strong> Aplicação completa entregue pela internet. Ex: Microsoft 365, Power BI Service.</li>
-            </ul>
-
-            <div class="highlight-box">
-                <strong>Modelo de Responsabilidade Compartilhada:</strong>
-                <p>Na IaaS, você gerencia o SO e as aplicações. Na PaaS, você gerencia apenas os dados e a aplicação. Na SaaS, você gerencia apenas os dados e os acessos de usuários. A Microsoft sempre gerencia a segurança física do datacenter.</p>
+        <section id="dominio1" class="card open">
+            <div class="collapsible-header" onclick="toggleCard(this)">
+                <h2>☁️ Domínio 1: Conceitos de Nuvem (25–30%)</h2>
+                <span class="toggle-icon">▼</span>
             </div>
+            <div class="collapsible-content">
+                <h3>1.1 Modelos de Nuvem</h3>
+                <ul>
+                    <li><strong>Nuvem Pública:</strong> Propriedade de provedores de terceiros (como a Microsoft). Recursos compartilhados via internet. Sem custo de capital inicial.</li>
+                    <li><strong>Nuvem Privada:</strong> Infraestrutura dedicada exclusivamente a uma única organização. Maior controle sobre a segurança e conformidade.</li>
+                    <li><strong>Nuvem Híbrida:</strong> Combina nuvem pública e privada, permitindo que dados e aplicativos sejam compartilhados entre elas.</li>
+                </ul>
 
-            <h3>1.3 Benefícios da Nuvem</h3>
-            <ul>
-                <li><strong>Alta Disponibilidade:</strong> Garantia de tempo de atividade (SLAs).</li>
-                <li><strong>Escalabilidade:</strong> Aumento de capacidade (Vertical: mais RAM/CPU; Horizontal: mais instâncias/VMs).</li>
-                <li><strong>Elasticidade:</strong> Ajuste automático de recursos com base na demanda (Auto-scaling).</li>
-                <li><strong>Agilidade:</strong> Implantação rápida de recursos.</li>
-                <li><strong>CapEx vs. OpEx:</strong> CapEx (Despesas de Capital - investimento inicial em hardware) vs. OpEx (Despesas Operacionais - pague pelo que usar/subscrição).</li>
-            </ul>
+                <h3>1.2 Modelos de Serviço de Nuvem (SPI)</h3>
+                <ul>
+                    <li><strong>IaaS (Infrastructure as a Service):</strong> Aluguel de infraestrutura de TI (VMs, redes, armazenamento). Maior controle e responsabilidade do usuário (Patching do SO, configurações). Ex: Azure VMs.</li>
+                    <li><strong>PaaS (Platform as a Service):</strong> Ambiente para desenvolvimento e implantação de apps sem gerenciar servidores subjacentes. A Microsoft cuida do SO e runtime. Ex: Azure App Service, Azure SQL Database.</li>
+                    <li><strong>SaaS (Software as a Service):</strong> Aplicação completa entregue pela internet. Ex: Microsoft 365, Power BI Service.</li>
+                </ul>
+
+                <div class="highlight-box">
+                    <strong>Modelo de Responsabilidade Compartilhada:</strong>
+                    <p>Na IaaS, você gerencia o SO e as aplicações. Na PaaS, você gerencia apenas os dados e a aplicação. Na SaaS, você gerencia apenas os dados e os acessos de usuários. A Microsoft sempre gerencia a segurança física do datacenter.</p>
+                </div>
+
+                <h3>1.3 Benefícios da Nuvem</h3>
+                <ul>
+                    <li><strong>Alta Disponibilidade:</strong> Garantia de tempo de atividade (SLAs).</li>
+                    <li><strong>Escalabilidade:</strong> Aumento de capacidade (Vertical: mais RAM/CPU; Horizontal: mais instâncias/VMs).</li>
+                    <li><strong>Elasticidade:</strong> Ajuste automático de recursos com base na demanda (Auto-scaling).</li>
+                    <li><strong>Agilidade:</strong> Implantação rápida de recursos.</li>
+                    <li><strong>CapEx vs. OpEx:</strong> CapEx (Despesas de Capital - investimento inicial em hardware) vs. OpEx (Despesas Operacionais - pague pelo que usar/subscrição).</li>
+                </ul>
+
+                <button class="btn-close-section" onclick="closeCard(this)">▲ Recolher Tópico</button>
+            </div>
         </section>
 
         <!-- Material - Domínio 2 -->
-        <section id="dominio2" class="card">
-            <h2>🏗️ Domínio 2: Arquitetura e Serviços Azure (35–40%)</h2>
+        <section id="dominio2" class="card open">
+            <div class="collapsible-header" onclick="toggleCard(this)">
+                <h2>🏗️ Domínio 2: Arquitetura e Serviços Azure (35–40%)</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="collapsible-content">
+                <h3>2.1 Componentes de Arquitetura do Azure</h3>
+                <ul>
+                    <li><strong>Regiões:</strong> Áreas geográficas contendo um ou mais datacenters conectados por rede de alta velocidade. Ex: Brazil South (São Paulo), East US.</li>
+                    <li><strong>Zonas de Disponibilidade (Availability Zones):</strong> Datacenters fisicamente separados dentro da mesma região, isolados contra falhas de energia/rede.</li>
+                    <li><strong>Grupos de Recursos (Resource Groups):</strong> Recipientes lógicos para agrupar recursos do Azure que compartilham o mesmo ciclo de vida.</li>
+                    <li><strong>Assinaturas (Subscriptions):</strong> Unidade de cobrança e gerenciamento de acesso.</li>
+                </ul>
 
-            <h3>2.1 Componentes de Arquitetura do Azure</h3>
-            <ul>
-                <li><strong>Regiões:</strong> Áreas geográficas contendo um ou mais datacenters conectados por rede de alta velocidade. Ex: Brazil South (São Paulo), East US.</li>
-                <li><strong>Zonas de Disponibilidade (Availability Zones):</strong> Datacenters fisicamente separados dentro da mesma região, isolados contra falhas de energia/rede.</li>
-                <li><strong>Grupos de Recursos (Resource Groups):</strong> Recipientes lógicos para agrupar recursos do Azure que compartilham o mesmo ciclo de vida.</li>
-                <li><strong>Assinaturas (Subscriptions):</strong> Unidade de cobrança e gerenciamento de acesso.</li>
-            </ul>
+                <h3>2.2 Principais Serviços de Computação e Rede</h3>
+                <ul>
+                    <li><strong>Azure Virtual Machines (VMs):</strong> Computação IaaS sob demanda.</li>
+                    <li><strong>Azure App Service:</strong> Serviço PaaS para hospedagem de aplicações web e APIs.</li>
+                    <li><strong>Containers (ACI e AKS):</strong> Azure Container Instances (execução rápida de contêineres) e Azure Kubernetes Service (orquestração de microsserviços).</li>
+                    <li><strong>Virtual Network (VNet):</strong> Rede privada isolada no Azure.</li>
+                    <li><strong>Azure ExpressRoute:</strong> Conexão privada dedicada entre a infraestrutura on-premises e o Azure (não passa pela internet pública).</li>
+                </ul>
 
-            <h3>2.2 Principais Serviços de Computação e Rede</h3>
-            <ul>
-                <li><strong>Azure Virtual Machines (VMs):</strong> Computação IaaS sob demanda.</li>
-                <li><strong>Azure App Service:</strong> Serviço PaaS para hospedagem de aplicações web e APIs.</li>
-                <li><strong>Containers (ACI e AKS):</strong> Azure Container Instances (execução rápida de contêineres) e Azure Kubernetes Service (orquestração de microsserviços).</li>
-                <li><strong>Virtual Network (VNet):</strong> Rede privada isolada no Azure.</li>
-                <li><strong>Azure ExpressRoute:</strong> Conexão privada dedicada entre a infraestrutura on-premises e o Azure (não passa pela internet pública).</li>
-            </ul>
+                <h3>2.3 Armazenamento e Banco de Dados</h3>
+                <ul>
+                    <li><strong>Azure Blob Storage:</strong> Armazenamento de dados não estruturados (arquivos, imagens, vídeos, backups). Tem camadas: Hot, Cool, Cold e Archive.</li>
+                    <li><strong>Azure Files:</strong> Compartilhamento de arquivos gerenciado via protocolo SMB/NFS.</li>
+                    <li><strong>Azure SQL Database:</strong> Banco de dados relacional PaaS gerenciado baseado em SQL Server.</li>
+                    <li><strong>Azure Cosmos DB:</strong> Banco de dados NoSQL globalmente distribuído e de ultra-baixa latência.</li>
+                    <li><strong>Azure Synapse Analytics:</strong> Serviço de data warehousing e análise de Big Data em escala empresarial.</li>
+                </ul>
 
-            <h3>2.3 Armazenamento e Banco de Dados</h3>
-            <ul>
-                <li><strong>Azure Blob Storage:</strong> Armazenamento de dados não estruturados (arquivos, imagens, vídeos, backups). Tem camadas: Hot, Cool, Cold e Archive.</li>
-                <li><strong>Azure Files:</strong> Compartilhamento de arquivos gerenciado via protocolo SMB/NFS.</li>
-                <li><strong>Azure SQL Database:</strong> Banco de dados relacional PaaS gerenciado baseado em SQL Server.</li>
-                <li><strong>Azure Cosmos DB:</strong> Banco de dados NoSQL globalmente distribuído e de ultra-baixa latência.</li>
-                <li><strong>Azure Synapse Analytics:</strong> Serviço de data warehousing e análise de Big Data em escala empresarial.</li>
-            </ul>
+                <button class="btn-close-section" onclick="closeCard(this)">▲ Recolher Tópico</button>
+            </div>
         </section>
 
         <!-- Material - Domínio 3 -->
-        <section id="dominio3" class="card">
-            <h2>🔒 Domínio 3: Gestão, Governança e Segurança (30–35%)</h2>
+        <section id="dominio3" class="card open">
+            <div class="collapsible-header" onclick="toggleCard(this)">
+                <h2>🔒 Domínio 3: Gestão, Governança e Segurança (30–35%)</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="collapsible-content">
+                <h3>3.1 Segurança e Identidade</h3>
+                <ul>
+                    <li><strong>Microsoft Entra ID (antigo Azure Active Directory):</strong> Serviço de gerenciamento de identidade e acesso baseado em nuvem.</li>
+                    <li><strong>MFA (Autenticação Multifator):</strong> Exige dois ou mais elementos de verificação para acesso.</li>
+                    <li><strong>RBAC (Role-Based Access Control):</strong> Concede permissões com base no papel do usuário (Princípio do Menor Privilégio). Ex: Reader, Contributor, Owner.</li>
+                    <li><strong>Zero Trust:</strong> Modelo de segurança que assume violação e verifica explicitamente cada solicitação de acesso.</li>
+                </ul>
 
-            <h3>3.1 Segurança e Identidade</h3>
-            <ul>
-                <li><strong>Microsoft Entra ID (antigo Azure Active Directory):</strong> Serviço de gerenciamento de identidade e acesso baseado em nuvem.</li>
-                <li><strong>MFA (Autenticação Multifator):</strong> Exige dois ou mais elementos de verificação para acesso.</li>
-                <li><strong>RBAC (Role-Based Access Control):</strong> Concede permissões com base no papel do usuário (Princípio do Menor Privilégio). Ex: Reader, Contributor, Owner.</li>
-                <li><strong>Zero Trust:</strong> Modelo de segurança que assume violação e verifica explicitamente cada solicitação de acesso.</li>
-            </ul>
+                <h3>3.2 Governança e Conformidade</h3>
+                <ul>
+                    <li><strong>Azure Policy:</strong> Impõe regras e padrões aos recursos (ex: proibir a criação de VMs em determinadas regiões).</li>
+                    <li><strong>Resource Locks:</strong> Impede a exclusão ou alteração acidental de recursos críticos (CanNotDelete, ReadOnly).</li>
+                    <li><strong>Azure Tags:</strong> Metadados no formato Chave:Valor aplicados a recursos para organização e controle de custos.</li>
+                </ul>
 
-            <h3>3.2 Governança e Conformidade</h3>
-            <ul>
-                <li><strong>Azure Policy:</strong> Impõe regras e padrões aos recursos (ex: proibir a criação de VMs em determinadas regiões).</li>
-                <li><strong>Resource Locks:</strong> Impede a exclusão ou alteração acidental de recursos críticos (CanNotDelete, ReadOnly).</li>
-                <li><strong>Azure Tags:</strong> Metadados no formato Chave:Valor aplicados a recursos para organização e controle de custos.</li>
-            </ul>
+                <h3>3.3 Gerenciamento de Custos</h3>
+                <ul>
+                    <li><strong>Calculadora de TCO (Total Cost of Ownership):</strong> Compara os custos de manter infraestrutura On-Premises vs. Migrar para o Azure.</li>
+                    <li><strong>Azure Pricing Calculator:</strong> Estima os custos mensais previstos para recursos no Azure.</li>
+                    <li><strong>Azure Cost Management:</strong> Monitora, analisa e otimiza os gastos com os serviços ativos.</li>
+                </ul>
 
-            <h3>3.3 Gerenciamento de Custos</h3>
-            <ul>
-                <li><strong>Calculadora de TCO (Total Cost of Ownership):</strong> Compara os custos de manter infraestrutura On-Premises vs. Migrar para o Azure.</li>
-                <li><strong>Azure Pricing Calculator:</strong> Estima os custos mensais previstos para recursos no Azure.</li>
-                <li><strong>Azure Cost Management:</strong> Monitora, analisa e otimiza os gastos com os serviços ativos.</li>
-            </ul>
+                <button class="btn-close-section" onclick="closeCard(this)">▲ Recolher Tópico</button>
+            </div>
         </section>
 
         <!-- Simulado Interativo -->
-        <section id="simulado" class="card">
-            <h2>📝 Simulado Prático Interativo</h2>
-            <p>Responda às questões abaixo para testar seus conhecimentos. A ordem das alternativas é aleatória a cada tentativa de simulado!</p>
-
-            <div id="quiz-score"></div>
-
-            <div class="quiz-container" id="quiz-box">
-                <!-- As perguntas serão injetadas via Javascript -->
+        <section id="simulado" class="card open">
+            <div class="collapsible-header" onclick="toggleCard(this)">
+                <h2>📝 Simulado Prático Interativo (20 Questões)</h2>
+                <span class="toggle-icon">▼</span>
             </div>
+            <div class="collapsible-content">
+                <p>Responda às questões abaixo para testar seus conhecimentos. A ordem das alternativas é aleatória a cada tentativa de simulado! Após a validação, você verá a explicação técnica detalhada para cada questão.</p>
 
-            <div class="quiz-actions">
-                <button class="btn" onclick="checkAnswers()">Avaliar Respostas</button>
-                <button class="btn btn-secondary" onclick="resetQuiz()">Novo Simulado (Embaralhar)</button>
+                <div id="quiz-score"></div>
+
+                <div class="quiz-container" id="quiz-box">
+                    <!-- As perguntas serão injetadas via Javascript -->
+                </div>
+
+                <div class="quiz-actions">
+                    <button class="btn" onclick="checkAnswers()">Avaliar Respostas</button>
+                    <button class="btn btn-secondary" onclick="resetQuiz()">Novo Simulado (Embaralhar)</button>
+                </div>
+
+                <button class="btn-close-section" onclick="closeCard(this)">▲ Recolher Tópico</button>
             </div>
         </section>
 
     </div>
 
     <footer>
-        <p>Desenvolvido para acompanhamento da Certificação AZ-900 | Atualizado 2026</p>
+        <p>Desenvolvido para acompanhamento da Certificação AZ-900 | Atualizado em Julho de 2026</p>
     </footer>
 
     <script>
+        // Funções para controle de expansão e recolhimento dos tópicos
+        function toggleCard(headerElement) {
+            const card = headerElement.parentElement;
+            card.classList.toggle('open');
+        }
+
+        function closeCard(buttonElement) {
+            const card = buttonElement.closest('.card');
+            if (card) {
+                card.classList.remove('open');
+                card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
         // Banco de Dados de Questões
+
         const questionsData = [
             {
                 id: 1,
-                question: "1. Qual modelo de serviço de nuvem oferece o maior nível de controle sobre o hardware subjacente e o sistema operacional?",
+                question: "1. Qual modelo de serviço de nuvem oferece o maior nível de controle sobre a infraestrutura subjacente e os sistemas operacionais?",
                 options: [
                     { text: "IaaS (Infraestrutura como Serviço)", correct: true },
                     { text: "PaaS (Plataforma como Serviço)", correct: false },
                     { text: "SaaS (Software como Serviço)", correct: false },
                     { text: "Serverless (Sem Servidor)", correct: false }
                 ],
-                explanation: "IaaS oferece controle direto sobre redes, máquinas virtuais e sistemas operacionais."
+                explanation: "Na IaaS, o cliente aluga a infraestrutura básica (VMs, armazenamento, rede) e retém o controle total sobre os sistemas operacionais e aplicações."
             },
             {
                 id: 2,
-                question: "2. Uma empresa deseja garantir que suas aplicações continuem operando mesmo no caso de uma falha completa em um datacenter do Azure. Qual recurso deve ser utilizado dentro da mesma região?",
+                question: "2. Uma empresa deseja garantir que suas aplicações continuem operando em caso de falha em um datacenter específico no Azure. Qual recurso dentro da mesma região deve ser utilizado?",
                 options: [
                     { text: "Zonas de Disponibilidade (Availability Zones)", correct: true },
                     { text: "Regiões Pares (Paired Regions)", correct: false },
                     { text: "Grupos de Recursos (Resource Groups)", correct: false },
                     { text: "ExpressRoute", correct: false }
                 ],
-                explanation: "Zonas de Disponibilidade são datacenters isolados dentro da mesma região para tolerância a falhas."
+                explanation: "Zonas de Disponibilidade são datacenters fisicamente isolados dentro da mesma região do Azure, com alimentação, resfriamento e rede independentes."
             },
             {
                 id: 3,
-                question: "3. Qual serviço do Azure permite estabelecer uma conexão privada e dedicada entre a infraestrutura On-Premises e a nuvem, sem passar pela internet pública?",
+                question: "3. Qual serviço do Azure estabelece uma conexão privada e dedicada entre a infraestrutura local (On-Premises) e o Azure sem trafegar pela internet pública?",
                 options: [
                     { text: "Azure ExpressRoute", correct: true },
                     { text: "Azure VPN Gateway", correct: false },
                     { text: "Azure Traffic Manager", correct: false },
                     { text: "Azure Front Door", correct: false }
                 ],
-                explanation: "O ExpressRoute oferece conexão dedicada e privada sem trafegar pela internet pública."
+                explanation: "O ExpressRoute fornece uma conexão física dedicada e privada entre a rede corporativa e a nuvem Azure, garantindo maior segurança e menor latência."
             },
             {
                 id: 4,
-                question: "4. Qual ferramenta você deve usar para comparar os custos de manter sua infraestrutura em um datacenter local (On-Premises) vs. migrar para o Azure?",
+                question: "4. Qual ferramenta permite estimar a economia financeira ao migrar cargas de trabalho de um datacenter local para o Azure?",
                 options: [
                     { text: "Calculadora de TCO (Total Cost of Ownership)", correct: true },
                     { text: "Calculadora de Preços do Azure", correct: false },
                     { text: "Azure Cost Management", correct: false },
                     { text: "Azure Advisor", correct: false }
                 ],
-                explanation: "A Calculadora de TCO é usada especificamente para estimar a economia ao migrar do On-Premises para a nuvem."
+                explanation: "A Calculadora de TCO compara os custos operacionais e de capital do modelo local frente à estimativa de gastos no Azure."
             },
             {
                 id: 5,
-                question: "5. Para impedir que usuários excluam acidentalmente um banco de dados crítico do Azure, qual recurso de governança deve ser aplicado?",
+                question: "5. Para impedir a exclusão acidental de um banco de dados de produção crítico, qual recurso de governança do Azure deve ser aplicado?",
                 options: [
-                    { text: "Resource Lock (Bloqueio de Recurso do tipo CanNotDelete)", correct: true },
+                    { text: "Resource Lock (Bloqueio CanNotDelete)", correct: true },
                     { text: "Azure Policy", correct: false },
                     { text: "Azure Tags", correct: false },
                     { text: "Microsoft Entra ID Role", correct: false }
                 ],
-                explanation: "Os Resource Locks (Bloqueios de Recursos) evitam alterações acidentais ou exclusões de recursos vitais."
+                explanation: "Locks do tipo CanNotDelete permitem a leitura e modificação do recurso, mas impedem estritamente a sua exclusão."
             },
             {
                 id: 6,
-                question: "6. Qual serviço de armazenamento é mais adequado para guardar terabytes de dados não estruturados, como arquivos de imagem, vídeo e backups?",
+                question: "6. Qual serviço de armazenamento é otimizado para guardar petabytes de dados não estruturados, como arquivos de vídeo, imagens e backups?",
                 options: [
                     { text: "Azure Blob Storage", correct: true },
                     { text: "Azure Disk Storage", correct: false },
                     { text: "Azure Files", correct: false },
-                    { text: "Azure Tables", correct: false }
+                    { text: "Azure Queue Storage", correct: false }
                 ],
-                explanation: "O Blob Storage é otimizado para armazenar quantidades massivas de dados não estruturados."
+                explanation: "O Blob Storage é a solução de armazenamento de objetos do Azure para dados massivos não estruturados."
+            },
+            {
+                id: 7,
+                question: "7. O modelo de responsabilidade compartilhada determina as obrigações entre o cliente e o provedor. Quem é SEMPRE responsável pela segurança dos dados e identidades?",
+                options: [
+                    { text: "O Cliente", correct: true },
+                    { text: "A Microsoft", correct: false },
+                    { text: "Compartilhado dependendo do SLA", correct: false },
+                    { text: "O Provedor de Internet", correct: false }
+                ],
+                explanation: "Em todos os modelos de nuvem (IaaS, PaaS e SaaS), a responsabilidade sobre a classificação, governança e acesso aos dados é do cliente."
+            },
+            {
+                id: 8,
+                question: "8. O que define o conceito de Elasticidade na Nuvem?",
+                options: [
+                    { text: "A capacidade de aumentar ou diminuir recursos automaticamente com base na demanda instantânea", correct: true },
+                    { text: "A garantia de 99.99% de tempo de atividade dos serviços", correct: false },
+                    { text: "A capacidade de restaurar backups rapidamente após um desastre", correct: false },
+                    { text: "O pagamento fixo de mensalidade para servidores dedicados", correct: false }
+                ],
+                explanation: "Elasticidade é o ajuste automático e dinâmico de recursos computacionais para cima ou para baixo conforme o tráfego varia."
+            },
+            {
+                id: 9,
+                question: "9. Qual é a principal função do Microsoft Entra ID (antigo Azure Active Directory)?",
+                options: [
+                    { text: "Gerenciamento de Identidade e Acesso baseado em nuvem (IAM)", correct: true },
+                    { text: "Prevenção contra ataques DDoS em aplicações web", correct: false },
+                    { text: "Monitoramento de desempenho e logs de máquinas virtuais", correct: false },
+                    { text: "Gerenciamento de chaves criptográficas e certificados", correct: false }
+                ],
+                explanation: "O Microsoft Entra ID é o serviço centralizado de nuvem para controle de identidades, autenticação e autorização."
+            },
+            {
+                id: 10,
+                question: "10. Qual serviço do Azure permite orquestrar e gerenciar contêineres Docker em larga escala?",
+                options: [
+                    { text: "Azure Kubernetes Service (AKS)", correct: true },
+                    { text: "Azure Virtual Machines", correct: false },
+                    { text: "Azure App Service", correct: false },
+                    { text: "Azure Batch", correct: false }
+                ],
+                explanation: "O AKS é o serviço Kubernetes totalmente gerenciado para simplificar a implantação e gestão de contêineres."
+            },
+            {
+                id: 11,
+                question: "11. Uma empresa quer impor uma regra de governança para proibir a criação de máquinas virtuais em certas regiões não autorizadas. O que deve usar?",
+                options: [
+                    { text: "Azure Policy", correct: true },
+                    { text: "Azure Blueprints", correct: false },
+                    { text: "Resource Locks", correct: false },
+                    { text: "Azure Monitor", correct: false }
+                ],
+                explanation: "O Azure Policy aplica convenções, regras e bloqueios de conformidade sobre a criação de recursos no nível do escopo definido."
+            },
+            {
+                id: 12,
+                question: "12. Qual serviço de banco de dados NoSQL do Azure oferece distribuição global com latências na casa dos milissegundos?",
+                options: [
+                    { text: "Azure Cosmos DB", correct: true },
+                    { text: "Azure SQL Database", correct: false },
+                    { text: "Azure Database for PostgreSQL", correct: false },
+                    { text: "Azure Synapse Analytics", correct: false }
+                ],
+                explanation: "O Cosmos DB é um banco NoSQL ultrarrápido com replicação multirregional integrada."
+            },
+            {
+                id: 13,
+                question: "13. O que são os Azure Resource Groups (Grupos de Recursos)?",
+                options: [
+                    { text: "Recipientes lógicos para organizar e gerenciar recursos que compartilham o mesmo ciclo de vida", correct: true },
+                    { text: "Zonas físicas de datacenters com energia e rede separadas", correct: false },
+                    { text: "Unidades administrativas exclusivas para faturamento e cobrança", correct: false },
+                    { text: "Redes virtuais isoladas para tráfego privado", correct: false }
+                ],
+                explanation: "Grupos de Recursos agrupam logicamente serviços no Azure para facilitar a gestão de segurança, faturamento e exclusão."
+            },
+            {
+                id: 14,
+                question: "14. Qual camada de acesso no Azure Blob Storage é ideal para dados armazenados a longo prazo que raramente são acessados e toleram horas de latência para recuperação?",
+                options: [
+                    { text: "Archive Tier (Camada de Arquivamento)", correct: true },
+                    { text: "Hot Tier (Camada Frequente)", correct: false },
+                    { text: "Cool Tier (Camada Infrequente)", correct: false },
+                    { text: "Cold Tier (Camada Fria)", correct: false }
+                ],
+                explanation: "A camada Archive é o menor custo de armazenamento para dados mantidos por mais de 180 dias com raros acessos."
+            },
+            {
+                id: 15,
+                question: "15. Qual modelo financeiro descreve os gastos operacionais contínuos sem a necessidade de investimento inicial substancial em hardware?",
+                options: [
+                    { text: "OpEx (Despesas Operacionais)", correct: true },
+                    { text: "CapEx (Despesas de Capital)", correct: false },
+                    { text: "TCO (Custo Total de Propriedade)", correct: false },
+                    { text: "ROI (Retorno sobre Investimento)", correct: false }
+                ],
+                explanation: "OpEx refere-se aos custos de serviços e produtos consumidos continuamente (modelo de assinatura pague pelo uso)."
+            },
+            {
+                id: 16,
+                question: "16. Para aplicar o princípio do Menor Privilégio na concessão de permissões de acesso aos recursos, qual conceito deve ser utilizado?",
+                options: [
+                    { text: "RBAC (Role-Based Access Control)", correct: true },
+                    { text: "MFA (Autenticação Multifator)", correct: false },
+                    { text: "Azure Resource Locks", correct: false },
+                    { text: "Azure Firewall", correct: false }
+                ],
+                explanation: "O RBAC permite atribuir permissões específicas (ex: Leitor, Colaborador) com base na função do usuário."
+            },
+            {
+                id: 17,
+                question: "17. Qual é a plataforma analítica ilimitada do Azure que reúne armazenamento de Big Data e Data Warehousing empresarial?",
+                options: [
+                    { text: "Azure Synapse Analytics", correct: true },
+                    { text: "Azure Stream Analytics", correct: false },
+                    { text: "Azure HDInsight", correct: false },
+                    { text: "Azure Data Factory", correct: false }
+                ],
+                explanation: "O Azure Synapse Analytics integra ingestão, exploração, data warehouse e análise de big data em uma única plataforma."
+            },
+            {
+                id: 18,
+                question: "18. O que caracteriza o conceito de Arquitetura Zero Trust em segurança da informação?",
+                options: [
+                    { text: "Nunca confiar, sempre verificar explicitamente todas as solicitações de acesso", correct: true },
+                    { text: "Confiar automaticamente em todas as conexões provenientes da rede interna", correct: false },
+                    { text: "Eliminar a necessidade de senhas ou autenticação multifator", correct: false },
+                    { text: "Bloquear todo o tráfego que venha de conexões de redes sem fio", correct: false }
+                ],
+                explanation: "Zero Trust assume que todas as solicitações podem ser invasões e exige autenticação e autorização estritas independentemente da origem."
+            },
+            {
+                id: 19,
+                question: "19. Qual recurso permite categorizar recursos aplicando metadados no formato de par Chave:Valor para organizar custos por departamento?",
+                options: [
+                    { text: "Azure Tags", correct: true },
+                    { text: "Azure Policy", correct: false },
+                    { text: "Resource Groups", correct: false },
+                    { text: "Azure Advisor", correct: false }
+                ],
+                explanation: "Tags organizam recursos logicamente em relatórios de custos e gerenciamento."
+            },
+            {
+                id: 20,
+                question: "20. O que são as Regiões Pares (Region Pairs) do Azure?",
+                options: [
+                    { text: "Duas regiões na mesma geografia situadas a pelo menos 300 milhas de distância para recuperação de desastres", correct: true },
+                    { text: "Datacenters redundantes na mesma cidade operando em modo ativo-ativo", correct: false },
+                    { text: "Conexões diretas entre o Azure e a AWS para failover", correct: false },
+                    { text: "Duas máquinas virtuais sincronizadas no mesmo host", correct: false }
+                ],
+                explanation: "Regiões pares mantêm isolamento físico a mais de 300 milhas para mitigação de falhas e desastres de grande escala geográfica."
             }
         ];
 
@@ -623,22 +900,22 @@
                     if (isCorrect) {
                         score++;
                         feedbackEl.className = 'feedback correct';
-                        feedbackEl.innerHTML = `<strong>Correto!</strong> ${q.explanation}`;
+                        feedbackEl.innerHTML = `<strong>✓ Correto!</strong><br>${q.explanation}`;
                     } else {
                         feedbackEl.className = 'feedback incorrect';
-                        feedbackEl.innerHTML = `<strong>Incorreto.</strong> ${q.explanation}`;
+                        feedbackEl.innerHTML = `<strong>✗ Incorreto.</strong><br>${q.explanation}`;
                     }
                     feedbackEl.style.display = 'block';
                 } else {
                     feedbackEl.className = 'feedback incorrect';
-                    feedbackEl.innerHTML = `<strong>Atenção:</strong> Nenhuma alternativa selecionada. ${q.explanation}`;
+                    feedbackEl.innerHTML = `<strong>⚠️ Não respondida.</strong><br>${q.explanation}`;
                     feedbackEl.style.display = 'block';
                 }
             });
 
             const scoreEl = document.getElementById('quiz-score');
             const percent = Math.round((score / total) * 100);
-            scoreEl.innerHTML = `Você acertou ${score} de ${total} questões (${percent}%). ${percent >= 70 ? '🎉 Parabéns! Você seria APROVADO!' : '📚 Continue revisando para atingir no mínimo 70%.'}`;
+            scoreEl.innerHTML = `Você acertou ${score} de ${total} questões (${percent}%). ${percent >= 70 ? '🎉 Excelente! Você seria APROVADO!' : '📚 Continue revisando os pontos para atingir no mínimo 70%.'}`;
             scoreEl.style.display = 'block';
             scoreEl.scrollIntoView({ behavior: 'smooth' });
         }
