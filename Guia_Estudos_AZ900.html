@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guia & Roteiro de Estudos AZ-900 | Microsoft Azure Fundamentals</title>
+    <style>
+        :root {
+            --primary: #0078d4;
+            --primary-dark: #005a9e;
+            --secondary: #2b88d8;
+            --bg-body: #f3f2f1;
+            --bg-card: #ffffff;
+            --text-main: #323130;
+            --text-muted: #605e5c;
+            --border: #e1dfdd;
+            --accent-green: #107c41;
+            --accent-red: #a80000;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding-bottom: 60px;
+        }
+
+        /* Header Layout */
+        header {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            color: white;
+            padding: 24px 16px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        header p {
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+
+        /* Sticky Navigation Bar */
+        nav {
+            position: sticky;
+            top: 0;
+            background: white;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            overflow-x: auto;
+            white-space: nowrap;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            -webkit-overflow-scrolling: touch;
+        }
+
+        nav a {
+            display: inline-block;
+            color: var(--text-main);
+            text-decoration: none;
+            padding: 12px 18px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border-bottom: 3px solid transparent;
+            transition: all 0.2s;
+        }
+
+        nav a:hover, nav a.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+            background-color: #f8f9fa;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 16px;
+        }
+
+        /* Section Cards */
+        .card {
+            background: var(--bg-card);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid var(--border);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        .card h2 {
+            color: var(--primary-dark);
+            font-size: 1.3rem;
+            margin-bottom: 14px;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .card h3 {
+            color: var(--secondary);
+            font-size: 1.1rem;
+            margin: 16px 0 8px 0;
+        }
+
+        p, li {
+            font-size: 0.95rem;
+            color: var(--text-main);
+            margin-bottom: 8px;
+        }
+
+        ul, ol {
+            padding-left: 20px;
+            margin-bottom: 12px;
+        }
+
+        /* Highlight Box */
+        .highlight-box {
+            background-color: #f0f6ff;
+            border-left: 4px solid var(--primary);
+            padding: 12px 16px;
+            margin: 12px 0;
+            border-radius: 0 4px 4px 0;
+        }
+
+        /* Cronograma Table & Grid */
+        .schedule-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+        }
+
+        @media(min-width: 600px) {
+            .schedule-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .day-box {
+            background: #fafafa;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 14px;
+        }
+
+        .day-box h4 {
+            color: var(--primary);
+            font-size: 1rem;
+            margin-bottom: 6px;
+        }
+
+        .badge {
+            display: inline-block;
+            background: #e1dfdd;
+            color: #323130;
+            font-size: 0.75rem;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-weight: bold;
+            margin-bottom: 6px;
+        }
+
+        /* Simulado Styles */
+        .quiz-container {
+            margin-top: 15px;
+        }
+
+        .question-card {
+            background: #fdfdfd;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+
+        .question-text {
+            font-weight: 600;
+            margin-bottom: 12px;
+            font-size: 1rem;
+        }
+
+        .options-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .option-item {
+            margin-bottom: 8px;
+        }
+
+        .option-label {
+            display: flex;
+            align-items: center;
+            padding: 10px 12px;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s;
+            font-size: 0.9rem;
+        }
+
+        .option-label:hover {
+            background: #f3f2f1;
+        }
+
+        .option-label input {
+            margin-right: 10px;
+            transform: scale(1.2);
+        }
+
+        .quiz-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        button.btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: background 0.2s;
+            flex: 1;
+            min-width: 140px;
+            text-align: center;
+        }
+
+        button.btn:hover {
+            background-color: var(--primary-dark);
+        }
+
+        button.btn-secondary {
+            background-color: #605e5c;
+        }
+
+        button.btn-secondary:hover {
+            background-color: #484644;
+        }
+
+        .feedback {
+            margin-top: 10px;
+            padding: 10px 14px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            display: none;
+        }
+
+        .feedback.correct {
+            background-color: #dff6dd;
+            color: var(--accent-green);
+            border: 1px solid #107c41;
+        }
+
+        .feedback.incorrect {
+            background-color: #fde7e9;
+            color: var(--accent-red);
+            border: 1px solid #a80000;
+        }
+
+        #quiz-score {
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-align: center;
+            padding: 15px;
+            background: #e1dfdd;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Trilha de Certificação AZ-900</h1>
+        <p>Microsoft Azure Fundamentals — Guia de Estudos & Simulados</p>
+    </header>
+
+    <nav>
+        <a href="#visao-geral" class="active">Visão Geral</a>
+        <a href="#cronograma">Cronograma</a>
+        <a href="#dominio1">Domínio 1 (25-30%)</a>
+        <a href="#dominio2">Domínio 2 (35-40%)</a>
+        <a href="#dominio3">Domínio 3 (30-35%)</a>
+        <a href="#simulado">Simulado Interativo</a>
+    </nav>
+
+    <div class="container">
+
+        <!-- Visão Geral -->
+        <section id="visao-geral" class="card">
+            <h2>📌 Visão Geral do Exame AZ-900</h2>
+            <p>O exame <strong>AZ-900: Microsoft Azure Fundamentals</strong> é a porta de entrada para o ecossistema de nuvem da Microsoft. Ele valida conhecimentos fundamentais sobre conceitos de nuvem, serviços do Azure, segurança, privacidade e gerenciamento de custos.</p>
+            
+            <div class="highlight-box">
+                <strong>Detalhes da Prova:</strong>
+                <ul>
+                    <li><strong>Duração:</strong> ~45 a 60 minutos (30 a 40 questões).</li>
+                    <li><strong>Nota de Corte:</strong> 700 de 1000 pontos.</li>
+                    <li><strong>Formato:</strong> Múltipla escolha, resposta única, associação e verdadeiro/falso.</li>
+                    <li><strong>Perfil do Candidato:</strong> Profissionais de TI, Gestores e Engenheiros de Dados/BI que buscam consolidar conceitos de nuvem pública.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Cronograma -->
+        <section id="cronograma" class="card">
+            <h2>📅 Cronograma de Estudos Recomendado (7 Dias)</h2>
+            <p>Este plano de estudo foi estruturado para ser concluído em 1 a 2 semanas, dedicando cerca de 1 a 1.5 horas por dia.</p>
+            
+            <div class="schedule-grid">
+                <div class="day-box">
+                    <span class="badge">DIA 1</span>
+                    <h4>Conceitos de Nuvem</h4>
+                    <p>IaaS, PaaS, SaaS, Nuvem Pública, Privada e Híbrida. Modelos de CapEx vs OpEx.</p>
+                </div>
+                <div class="day-box">
+                    <span class="badge">DIA 2</span>
+                    <h4>Arquitetura Azure</h4>
+                    <p>Regiões, Zonas de Disponibilidade, Grupos de Recursos e Assinaturas.</p>
+                </div>
+                <div class="day-box">
+                    <span class="badge">DIA 3</span>
+                    <h4>Computação e Rede</h4>
+                    <p>VMs, Azure App Service, ACI/AKS, VNets, VPN Gateway e ExpressRoute.</p>
+                </div>
+                <div class="day-box">
+                    <span class="badge">DIA 4</span>
+                    <h4>Armazenamento e Dados</h4>
+                    <p>Blob Storage, Disk Storage, Azure Files, Cosmos DB, Azure SQL e Synapse.</p>
+                </div>
+                <div class="day-box">
+                    <span class="badge">DIA 5</span>
+                    <h4>Segurança e Identidade</h4>
+                    <p>Microsoft Entra ID (Azure AD), Autenticação MFA, RBAC e Zero Trust.</p>
+                </div>
+                <div class="day-box">
+                    <span class="badge">DIA 6</span>
+                    <h4>Governança e Custos</h4>
+                    <p>Azure Policy, Locks, Cost Management e Calculadora de TCO.</p>
+                </div>
+                <div class="day-box" style="grid-column: 1 / -1;">
+                    <span class="badge" style="background: var(--primary); color: white;">DIA 7</span>
+                    <h4>Simulados Práticos e Revisão Geral</h4>
+                    <p>Realização de testes simulados, revisão dos pontos fracos e consolidação do conteúdo.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Material - Domínio 1 -->
+        <section id="dominio1" class="card">
+            <h2>☁️ Domínio 1: Conceitos de Nuvem (25–30%)</h2>
+            
+            <h3>1.1 Modelos de Nuvem</h3>
+            <ul>
+                <li><strong>Nuvem Pública:</strong> Propriedade de provedores de terceiros (como a Microsoft). Recursos compartilhados via internet. Sem custo de capital inicial.</li>
+                <li><strong>Nuvem Privada:</strong> Infraestrutura dedicada exclusivamente a uma única organização. Maior controle sobre a segurança e conformidade.</li>
+                <li><strong>Nuvem Híbrida:</strong> Combina nuvem pública e privada, permitindo que dados e aplicativos sejam compartilhados entre elas.</li>
+            </ul>
+
+            <h3>1.2 Modelos de Serviço de Nuvem (SPI)</h3>
+            <ul>
+                <li><strong>IaaS (Infrastructure as a Service):</strong> Aluguel de infraestrutura de TI (VMs, redes, armazenamento). Maior controle e responsabilidade do usuário (Patching do SO, configurações). Ex: Azure VMs.</li>
+                <li><strong>PaaS (Platform as a Service):</strong> Ambiente para desenvolvimento e implantação de apps sem gerenciar servidores subjacentes. A Microsoft cuida do SO e runtime. Ex: Azure App Service, Azure SQL Database.</li>
+                <li><strong>SaaS (Software as a Service):</strong> Aplicação completa entregue pela internet. Ex: Microsoft 365, Power BI Service.</li>
+            </ul>
+
+            <div class="highlight-box">
+                <strong>Modelo de Responsabilidade Compartilhada:</strong>
+                <p>Na IaaS, você gerencia o SO e as aplicações. Na PaaS, você gerencia apenas os dados e a aplicação. Na SaaS, você gerencia apenas os dados e os acessos de usuários. A Microsoft sempre gerencia a segurança física do datacenter.</p>
+            </div>
+
+            <h3>1.3 Benefícios da Nuvem</h3>
+            <ul>
+                <li><strong>Alta Disponibilidade:</strong> Garantia de tempo de atividade (SLAs).</li>
+                <li><strong>Escalabilidade:</strong> Aumento de capacidade (Vertical: mais RAM/CPU; Horizontal: mais instâncias/VMs).</li>
+                <li><strong>Elasticidade:</strong> Ajuste automático de recursos com base na demanda (Auto-scaling).</li>
+                <li><strong>Agilidade:</strong> Implantação rápida de recursos.</li>
+                <li><strong>CapEx vs. OpEx:</strong> CapEx (Despesas de Capital - investimento inicial em hardware) vs. OpEx (Despesas Operacionais - pague pelo que usar/subscrição).</li>
+            </ul>
+        </section>
+
+        <!-- Material - Domínio 2 -->
+        <section id="dominio2" class="card">
+            <h2>🏗️ Domínio 2: Arquitetura e Serviços Azure (35–40%)</h2>
+
+            <h3>2.1 Componentes de Arquitetura do Azure</h3>
+            <ul>
+                <li><strong>Regiões:</strong> Áreas geográficas contendo um ou mais datacenters conectados por rede de alta velocidade. Ex: Brazil South (São Paulo), East US.</li>
+                <li><strong>Zonas de Disponibilidade (Availability Zones):</strong> Datacenters fisicamente separados dentro da mesma região, isolados contra falhas de energia/rede.</li>
+                <li><strong>Grupos de Recursos (Resource Groups):</strong> Recipientes lógicos para agrupar recursos do Azure que compartilham o mesmo ciclo de vida.</li>
+                <li><strong>Assinaturas (Subscriptions):</strong> Unidade de cobrança e gerenciamento de acesso.</li>
+            </ul>
+
+            <h3>2.2 Principais Serviços de Computação e Rede</h3>
+            <ul>
+                <li><strong>Azure Virtual Machines (VMs):</strong> Computação IaaS sob demanda.</li>
+                <li><strong>Azure App Service:</strong> Serviço PaaS para hospedagem de aplicações web e APIs.</li>
+                <li><strong>Containers (ACI e AKS):</strong> Azure Container Instances (execução rápida de contêineres) e Azure Kubernetes Service (orquestração de microsserviços).</li>
+                <li><strong>Virtual Network (VNet):</strong> Rede privada isolada no Azure.</li>
+                <li><strong>Azure ExpressRoute:</strong> Conexão privada dedicada entre a infraestrutura on-premises e o Azure (não passa pela internet pública).</li>
+            </ul>
+
+            <h3>2.3 Armazenamento e Banco de Dados</h3>
+            <ul>
+                <li><strong>Azure Blob Storage:</strong> Armazenamento de dados não estruturados (arquivos, imagens, vídeos, backups). Tem camadas: Hot, Cool, Cold e Archive.</li>
+                <li><strong>Azure Files:</strong> Compartilhamento de arquivos gerenciado via protocolo SMB/NFS.</li>
+                <li><strong>Azure SQL Database:</strong> Banco de dados relacional PaaS gerenciado baseado em SQL Server.</li>
+                <li><strong>Azure Cosmos DB:</strong> Banco de dados NoSQL globalmente distribuído e de ultra-baixa latência.</li>
+                <li><strong>Azure Synapse Analytics:</strong> Serviço de data warehousing e análise de Big Data em escala empresarial.</li>
+            </ul>
+        </section>
+
+        <!-- Material - Domínio 3 -->
+        <section id="dominio3" class="card">
+            <h2>🔒 Domínio 3: Gestão, Governança e Segurança (30–35%)</h2>
+
+            <h3>3.1 Segurança e Identidade</h3>
+            <ul>
+                <li><strong>Microsoft Entra ID (antigo Azure Active Directory):</strong> Serviço de gerenciamento de identidade e acesso baseado em nuvem.</li>
+                <li><strong>MFA (Autenticação Multifator):</strong> Exige dois ou mais elementos de verificação para acesso.</li>
+                <li><strong>RBAC (Role-Based Access Control):</strong> Concede permissões com base no papel do usuário (Princípio do Menor Privilégio). Ex: Reader, Contributor, Owner.</li>
+                <li><strong>Zero Trust:</strong> Modelo de segurança que assume violação e verifica explicitamente cada solicitação de acesso.</li>
+            </ul>
+
+            <h3>3.2 Governança e Conformidade</h3>
+            <ul>
+                <li><strong>Azure Policy:</strong> Impõe regras e padrões aos recursos (ex: proibir a criação de VMs em determinadas regiões).</li>
+                <li><strong>Resource Locks:</strong> Impede a exclusão ou alteração acidental de recursos críticos (CanNotDelete, ReadOnly).</li>
+                <li><strong>Azure Tags:</strong> Metadados no formato Chave:Valor aplicados a recursos para organização e controle de custos.</li>
+            </ul>
+
+            <h3>3.3 Gerenciamento de Custos</h3>
+            <ul>
+                <li><strong>Calculadora de TCO (Total Cost of Ownership):</strong> Compara os custos de manter infraestrutura On-Premises vs. Migrar para o Azure.</li>
+                <li><strong>Azure Pricing Calculator:</strong> Estima os custos mensais previstos para recursos no Azure.</li>
+                <li><strong>Azure Cost Management:</strong> Monitora, analisa e otimiza os gastos com os serviços ativos.</li>
+            </ul>
+        </section>
+
+        <!-- Simulado Interativo -->
+        <section id="simulado" class="card">
+            <h2>📝 Simulado Prático Interativo</h2>
+            <p>Responda às questões abaixo para testar seus conhecimentos. A ordem das alternativas é aleatória a cada tentativa de simulado!</p>
+
+            <div id="quiz-score"></div>
+
+            <div class="quiz-container" id="quiz-box">
+                <!-- As perguntas serão injetadas via Javascript -->
+            </div>
+
+            <div class="quiz-actions">
+                <button class="btn" onclick="checkAnswers()">Avaliar Respostas</button>
+                <button class="btn btn-secondary" onclick="resetQuiz()">Novo Simulado (Embaralhar)</button>
+            </div>
+        </section>
+
+    </div>
+
+    <footer>
+        <p>Desenvolvido para acompanhamento da Certificação AZ-900 | Atualizado 2026</p>
+    </footer>
+
+    <script>
+        // Banco de Dados de Questões
+        const questionsData = [
+            {
+                id: 1,
+                question: "1. Qual modelo de serviço de nuvem oferece o maior nível de controle sobre o hardware subjacente e o sistema operacional?",
+                options: [
+                    { text: "IaaS (Infraestrutura como Serviço)", correct: true },
+                    { text: "PaaS (Plataforma como Serviço)", correct: false },
+                    { text: "SaaS (Software como Serviço)", correct: false },
+                    { text: "Serverless (Sem Servidor)", correct: false }
+                ],
+                explanation: "IaaS oferece controle direto sobre redes, máquinas virtuais e sistemas operacionais."
+            },
+            {
+                id: 2,
+                question: "2. Uma empresa deseja garantir que suas aplicações continuem operando mesmo no caso de uma falha completa em um datacenter do Azure. Qual recurso deve ser utilizado dentro da mesma região?",
+                options: [
+                    { text: "Zonas de Disponibilidade (Availability Zones)", correct: true },
+                    { text: "Regiões Pares (Paired Regions)", correct: false },
+                    { text: "Grupos de Recursos (Resource Groups)", correct: false },
+                    { text: "ExpressRoute", correct: false }
+                ],
+                explanation: "Zonas de Disponibilidade são datacenters isolados dentro da mesma região para tolerância a falhas."
+            },
+            {
+                id: 3,
+                question: "3. Qual serviço do Azure permite estabelecer uma conexão privada e dedicada entre a infraestrutura On-Premises e a nuvem, sem passar pela internet pública?",
+                options: [
+                    { text: "Azure ExpressRoute", correct: true },
+                    { text: "Azure VPN Gateway", correct: false },
+                    { text: "Azure Traffic Manager", correct: false },
+                    { text: "Azure Front Door", correct: false }
+                ],
+                explanation: "O ExpressRoute oferece conexão dedicada e privada sem trafegar pela internet pública."
+            },
+            {
+                id: 4,
+                question: "4. Qual ferramenta você deve usar para comparar os custos de manter sua infraestrutura em um datacenter local (On-Premises) vs. migrar para o Azure?",
+                options: [
+                    { text: "Calculadora de TCO (Total Cost of Ownership)", correct: true },
+                    { text: "Calculadora de Preços do Azure", correct: false },
+                    { text: "Azure Cost Management", correct: false },
+                    { text: "Azure Advisor", correct: false }
+                ],
+                explanation: "A Calculadora de TCO é usada especificamente para estimar a economia ao migrar do On-Premises para a nuvem."
+            },
+            {
+                id: 5,
+                question: "5. Para impedir que usuários excluam acidentalmente um banco de dados crítico do Azure, qual recurso de governança deve ser aplicado?",
+                options: [
+                    { text: "Resource Lock (Bloqueio de Recurso do tipo CanNotDelete)", correct: true },
+                    { text: "Azure Policy", correct: false },
+                    { text: "Azure Tags", correct: false },
+                    { text: "Microsoft Entra ID Role", correct: false }
+                ],
+                explanation: "Os Resource Locks (Bloqueios de Recursos) evitam alterações acidentais ou exclusões de recursos vitais."
+            },
+            {
+                id: 6,
+                question: "6. Qual serviço de armazenamento é mais adequado para guardar terabytes de dados não estruturados, como arquivos de imagem, vídeo e backups?",
+                options: [
+                    { text: "Azure Blob Storage", correct: true },
+                    { text: "Azure Disk Storage", correct: false },
+                    { text: "Azure Files", correct: false },
+                    { text: "Azure Tables", correct: false }
+                ],
+                explanation: "O Blob Storage é otimizado para armazenar quantidades massivas de dados não estruturados."
+            }
+        ];
+
+        // Função para embaralhar arrays (Fisher-Yates)
+        function shuffle(array) {
+            let currentIndex = array.length, randomIndex;
+            while (currentIndex != 0) {
+                randomIndex = Math.floor(Math.random() * currentIndex);
+                currentIndex--;
+                [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+            }
+            return array;
+        }
+
+        let currentQuestions = [];
+
+        function renderQuiz() {
+            const container = document.getElementById('quiz-box');
+            container.innerHTML = '';
+            document.getElementById('quiz-score').style.display = 'none';
+
+            // Clona e embaralha as opções de cada questão
+            currentQuestions = JSON.parse(JSON.stringify(questionsData));
+            
+            currentQuestions.forEach((q, qIndex) => {
+                // Embaralha alternativas
+                q.options = shuffle(q.options);
+
+                const qCard = document.createElement('div');
+                qCard.className = 'question-card';
+                qCard.id = `q-card-${qIndex}`;
+
+                let optionsHtml = '';
+                q.options.forEach((opt, optIndex) => {
+                    optionsHtml += `
+                        <li class="option-item">
+                            <label class="option-label">
+                                <input type="radio" name="question-${qIndex}" value="${opt.correct}">
+                                ${opt.text}
+                            </label>
+                        </li>
+                    `;
+                });
+
+                qCard.innerHTML = `
+                    <div class="question-text">${q.question}</div>
+                    <ul class="options-list">${optionsHtml}</ul>
+                    <div class="feedback" id="feedback-${qIndex}"></div>
+                `;
+                container.appendChild(qCard);
+            });
+        }
+
+        function checkAnswers() {
+            let score = 0;
+            let total = currentQuestions.length;
+
+            currentQuestions.forEach((q, qIndex) => {
+                const selected = document.querySelector(`input[name="question-${qIndex}"]:checked`);
+                const feedbackEl = document.getElementById(`feedback-${qIndex}`);
+
+                if (selected) {
+                    const isCorrect = selected.value === 'true';
+                    if (isCorrect) {
+                        score++;
+                        feedbackEl.className = 'feedback correct';
+                        feedbackEl.innerHTML = `<strong>Correto!</strong> ${q.explanation}`;
+                    } else {
+                        feedbackEl.className = 'feedback incorrect';
+                        feedbackEl.innerHTML = `<strong>Incorreto.</strong> ${q.explanation}`;
+                    }
+                    feedbackEl.style.display = 'block';
+                } else {
+                    feedbackEl.className = 'feedback incorrect';
+                    feedbackEl.innerHTML = `<strong>Atenção:</strong> Nenhuma alternativa selecionada. ${q.explanation}`;
+                    feedbackEl.style.display = 'block';
+                }
+            });
+
+            const scoreEl = document.getElementById('quiz-score');
+            const percent = Math.round((score / total) * 100);
+            scoreEl.innerHTML = `Você acertou ${score} de ${total} questões (${percent}%). ${percent >= 70 ? '🎉 Parabéns! Você seria APROVADO!' : '📚 Continue revisando para atingir no mínimo 70%.'}`;
+            scoreEl.style.display = 'block';
+            scoreEl.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function resetQuiz() {
+            renderQuiz();
+        }
+
+        // Inicializar o simulado ao carregar
+        window.onload = function() {
+            renderQuiz();
+        };
+    </script>
+</body>
+</html>
